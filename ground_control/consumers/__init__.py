@@ -1,0 +1,1 @@
+GROUP_NAME = 'control_group'
