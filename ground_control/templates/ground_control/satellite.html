@@ -1,11 +1,6 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8"/>
-    <title>Control Room</title>
-</head>
-<body>
+{% extends "ground_control/base.html" %}
 
+{% block content %}
     <br>
     <textarea id="earth-log" cols="100" rows="20"></textarea><br>
     <input id="chat-message-input" type="text" size="100"><br>
@@ -74,5 +69,4 @@
             messageInputDom.value = '';
         };
     </script>
-</body>
-</html>
+{% endblock content %}
