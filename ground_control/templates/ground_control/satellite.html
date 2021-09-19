@@ -9,6 +9,7 @@
     <input id="chat-message-submit" type="button" value="Send">
 
     {{ satellite_name|json_script:"satellite_name" }}
+    {{ number_of_satellites|json_script:"number_of_satellites" }}
 
     <script src="{% static 'ground_control/satellite.js' %}"></script>
 

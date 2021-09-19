@@ -4,7 +4,7 @@ from channels.generic.websocket import AsyncWebsocketConsumer
 from . import GROUP_NAME
 from . import earth_utils
 
-SATELLITES = ['satellite1', 'satellite2']
+# SATELLITES = ['satellite_1', 'satellite_2']
 
 class EarthConsumer(AsyncWebsocketConsumer):
 
@@ -13,6 +13,7 @@ class EarthConsumer(AsyncWebsocketConsumer):
         self.channel_name = 'earth_control'
 
     async def connect(self):
+        self.number_of_satellites = self.scope['url_route']['kwargs']['number_of_satellites']
         self.room_name = self.scope['url_route']
         self.room_group_name = GROUP_NAME
 
@@ -22,9 +23,10 @@ class EarthConsumer(AsyncWebsocketConsumer):
             self.channel_name
         )
 
-        for satellite in SATELLITES:
+        for satellite in range(1, int(self.number_of_satellites) + 1):
+            channel_name = 'satellite_' + str(satellite)
             await self.channel_layer.group_add(
-                satellite,
+                channel_name,
                 self.channel_name
             )
 
@@ -44,13 +46,14 @@ class EarthConsumer(AsyncWebsocketConsumer):
         total_tasks = message['task']
         
         sorted_by_weight = earth_utils.sort_task_list(total_tasks)
-        for satellite in SATELLITES:
+        for satellite in range(1, int(self.number_of_satellites) + 1):
+            channel_name = 'satellite_' + str(satellite)
             task, sorted_by_weight = earth_utils.distribute_tasks(sorted_by_weight)
             await self.channel_layer.group_send(
-                satellite,
+                channel_name,
                 {
                     'type': 'chat_message',
-                    'message': 'Earth control to ' + satellite + ': \n' + str(task),
+                    'message': 'Earth control to ' + channel_name + ': \n' + str(task),
                     'tasks': task['tasks']
                 }
             )

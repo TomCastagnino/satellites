@@ -1,3 +1,11 @@
 {% extends "ground_control/base.html" %}
+{% load static %}
 {% block content %}
+
+    Enter the number of satellites you wish to connect with<br>
+    <input id="satellite-number-input" type="text" size="100"><br>
+    <input id="satellite-number-submit" type="button" value="Enter">
+
+    <script src="{% static 'ground_control/index.js' %}"></script>
+
 {% endblock content %}

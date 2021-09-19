@@ -10,7 +10,7 @@ class SatelliteConsumer(AsyncWebsocketConsumer):
     async def connect(self):
         self.room_name = self.scope['url_route']['kwargs']['satellite_name']
         self.room_group_name = GROUP_NAME
-
+        print(self.room_name)
 
         # Join room group
         await self.channel_layer.group_add(
