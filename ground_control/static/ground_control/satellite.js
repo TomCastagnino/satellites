@@ -36,7 +36,7 @@ earthSocket.onclose = () => {
 
 msgInput.focus();
 msgInput.onkeyup = (evt) => {
-    if (e.keyCode === 13) {  // enter, return
+    if (evt.keyCode === 13) {  // enter, return
         submit.click();
     }
 };
