@@ -4,7 +4,8 @@ Hi there!
 Abordaje del ejercicio.
 
 Primero me enfoqué en el algoritmo de asignación de tareas. Me pareció que se asemejaba al problema del set packing (a algún tipo de la familia de los set packing problems https://en.wikipedia.org/wiki/Set_packing).
-Código: https://github.com/TomCastagnino/satellites/blob/main/ground_control/consumers/earth_utils.py
+
+**Código**: https://github.com/TomCastagnino/satellites/blob/main/ground_control/consumers/earth_utils.py
 
 Lo que hice fue primero ordenar la lista de tareas según su peso (pay_off / número de  recursos usados). Para eso usé sorted(). Por lo tanto, la complejidad de mi función sort_task_list() es O(n log n).
 
@@ -20,7 +21,7 @@ Posible mejora: si conociera los recursos disponibles de casa satélite, podría
 
 En cuanto a la arquitectura, decidí usar django-channels con Redis y docker. Nunca había usado ese stack. Otras opciones que evalué fueron usar Celery y RabbitMQ. También pensé en usar AWS.
 
-Funcionamiento de la app:
+**Funcionamiento de la app**:
 
 Instalar Docker y correr: $ docker run -p 6379:6379 -d redis:5
 
