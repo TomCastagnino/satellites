@@ -4,7 +4,7 @@ from channels.generic.websocket import AsyncWebsocketConsumer
 from . import GROUP_NAME
 from . import earth_utils
 
-# SATELLITES = ['satellite_1', 'satellite_2']
+
 
 class EarthConsumer(AsyncWebsocketConsumer):
 
@@ -39,34 +39,43 @@ class EarthConsumer(AsyncWebsocketConsumer):
             self.channel_name
         )
 
+    #generic message
+    def message_to_group(self, group_name, message, message_type, task=''):
+        return self.channel_layer.group_send(
+            group_name,
+            {
+                'type': message_type,
+                'message': message,
+                'tasks': task
+            }
+        )
+
     # Receive message from WebSocket
     async def receive(self, text_data):
-        text_data_json = json.loads(text_data)
-        message = json.loads(text_data_json['message'])
-        total_tasks = message['task']
-        
-        sorted_by_weight = earth_utils.sort_task_list(total_tasks)
-        for satellite in range(1, int(self.number_of_satellites) + 1):
-            channel_name = 'satellite_' + str(satellite)
-            task, sorted_by_weight = earth_utils.distribute_tasks(sorted_by_weight)
-            await self.channel_layer.group_send(
-                channel_name,
-                {
-                    'type': 'chat_message',
-                    'message': 'Earth control to ' + channel_name + ': \n' + str(task),
-                    'tasks': task['tasks']
-                }
-            )
-        
-        if len(sorted_by_weight) > 0:
-            await self.channel_layer.group_send(
-                self.room_group_name,
-                {
-                    'type': 'free_tasks',
-                    'message': 'Unable to allocate: ' + str(sorted_by_weight)
-                }
-            )
+        try:
+            text_data_json = json.loads(text_data)
+            message = json.loads(text_data_json['message'])
 
+            total_tasks = message['task']
+            sorted_by_weight = earth_utils.sort_task_list(total_tasks)
+
+            for satellite in range(1, int(self.number_of_satellites) + 1):
+                channel_name = 'satellite_' + str(satellite)
+                task, sorted_by_weight = earth_utils.distribute_tasks(sorted_by_weight)
+                message = 'Earth control to ' + channel_name + ': \n' + str(task)
+                await self.message_to_group(channel_name, message, 'chat_message', task['tasks'])
+
+            if len(sorted_by_weight) > 0:
+                message = 'Unable to allocate: ' + str(sorted_by_weight)
+                await self.message_to_group(self.room_group_name, message, 'free_tasks')
+           
+        except KeyError:
+            message = 'Key error. Please check your input'
+            await self.message_to_group(self.room_group_name, message, 'chat_message')
+
+        except json.decoder.JSONDecodeError:
+            message = 'JSON error! Please, check your input.'
+            await self.message_to_group(self.room_group_name, message, 'chat_message')
 
     # Receive message from room group
     async def chat_message(self, event):
@@ -83,4 +92,3 @@ class EarthConsumer(AsyncWebsocketConsumer):
         await self.send(text_data=json.dumps({
             'message': message
         }))
-    

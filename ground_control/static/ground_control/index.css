@@ -1,0 +1,23 @@
+.container {
+    display: flex;
+    justify-content: center;    
+    flex-direction: column;
+    gap: 50px 30px;
+}
+
+.sub-container {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    gap: 30px 30px
+}
+
+#chat-message-submit {
+    width: 40rem;
+    height: 5rem;
+    flex-grow: 9;
+}
+
+.button-container {
+    text-align: center;
+}

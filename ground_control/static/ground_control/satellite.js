@@ -5,6 +5,32 @@ const msgInput = document.querySelector('#chat-message-input');
 const submit = document.querySelector('#chat-message-submit');
 const earthLog = document.querySelector('#earth-log');
 
+msgInput.value = 
+`{
+    "task": [
+        {
+            "name": "fotos",
+            "pay_off": 10,
+            "resources": [1, 5] 
+        },
+        {
+            "name": "mantenimiento",
+            "pay_off": 1,
+            "resources": [1, 2] 
+        },
+        {
+            "name": "pruebas",
+            "pay_off": 1,
+            "resources": [5, 6] 
+        },
+        {
+            "name": "fsck",
+            "pay_off": 0.1,
+            "resources": [1, 6] 
+        }
+    ]
+}`;
+
 const earthSocket = new WebSocket(
     'ws://'
     + window.location.host
@@ -35,11 +61,11 @@ earthSocket.onclose = () => {
 };
 
 msgInput.focus();
-msgInput.onkeyup = (evt) => {
-    if (evt.keyCode === 13) {  // enter, return
-        submit.click();
-    }
-};
+// msgInput.onkeyup = (evt) => {
+//     if (evt.keyCode === 13) {  // enter, return
+//         submit.click();
+//     }
+// };
 
 submit.onclick = () => {
     const message = msgInput.value;

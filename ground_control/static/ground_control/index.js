@@ -12,7 +12,7 @@ msgInput.onkeyup = (evt) => {
 
 submit.onclick = () => {
     const numberOfSatellites = msgInput.value;
-    if (isNaN(parseInt(numberOfSatellites)))  {
+    if (isNaN(parseInt(numberOfSatellites)) || parseInt(numberOfSatellites) < 1)  {
         window.alert('Please, enter a valid integer!');
         return;
     }
