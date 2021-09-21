@@ -8,6 +8,16 @@
     <title>Ground Control</title>
 </head>
 <body>
+    <details>
+    <summary></summary>
+        <nav class="menu">
+            <a href="{% url 'index' %}">Home</a>
+            <a href="{% url 'tasks' %}">Tasks</a>
+            <a href="/ground_control/earth/2/">Connect 2</a>
+            <a href="/ground_control/earth/3/">Connect 3</a>
+            <a href="/ground_control/earth/4/">Connect 4</a>
+        </nav>
+    </details>
     {% block content %}
     {% endblock %}
 </body>
