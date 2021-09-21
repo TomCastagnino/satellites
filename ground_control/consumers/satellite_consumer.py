@@ -1,7 +1,9 @@
 import json
 from . import satellite_utils
 from channels.generic.websocket import AsyncWebsocketConsumer
+from channels.db import database_sync_to_async
 from . import GROUP_NAME
+from ..models import Task
 
 ERROR_MARGIN = 10
 
@@ -31,6 +33,12 @@ class SatelliteConsumer(AsyncWebsocketConsumer):
             self.channel_name
         )
 
+    @database_sync_to_async
+    def save_task(self, task, completed, satellite):
+        tk = Task(name=task, assigned_to=satellite, completed=completed)
+        tk.save()
+        return tk
+
     # Receive message from WebSocket
     async def receive(self, text_data):
         text_data_json = json.loads(text_data)
@@ -55,11 +63,12 @@ class SatelliteConsumer(AsyncWebsocketConsumer):
         }))       
 
         for task in event['tasks']:
-            result = satellite_utils.solve_task(task, ERROR_MARGIN)
+            result, completed = satellite_utils.solve_task(task, ERROR_MARGIN)
+            tk = await self.save_task(task, completed, self.room_name)
             await self.send(text_data=json.dumps({
                 'message': self.room_name + ': '  + result + '\n'
             })) 
-
+            
 
     async def free_tasks(self, event):
         message = event['message']
