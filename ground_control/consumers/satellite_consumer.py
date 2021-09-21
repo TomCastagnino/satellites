@@ -64,7 +64,7 @@ class SatelliteConsumer(AsyncWebsocketConsumer):
 
         for task in event['tasks']:
             result, completed = satellite_utils.solve_task(task, ERROR_MARGIN)
-            tk = await self.save_task(task, completed, self.room_name)
+            await self.save_task(task, completed, self.room_name)
             await self.send(text_data=json.dumps({
                 'message': self.room_name + ': '  + result + '\n'
             })) 

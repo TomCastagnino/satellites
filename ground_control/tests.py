@@ -1,94 +1,58 @@
 from django.test import TestCase
-from channels.testing import ChannelsLiveServerTestCase
-from selenium import webdriver
-from selenium.webdriver.common.action_chains import ActionChains
-from selenium.webdriver.support.wait import WebDriverWait
+from .consumers import earth_utils, satellite_utils
+from unittest.mock import patch
 
-class ChatTests(ChannelsLiveServerTestCase):
-    serve_static = True  # emulate StaticLiveServerTestCase
+tasks_list = [
+{
+    'name': 'fotos',
+    'pay_off': 10,
+    'resources': [1, 5] 
+},
+{
+    'name': 'mantenimiento',
+    'pay_off': 5,
+    'resources': [1, 2] 
+},
+{
+    'name': 'pruebas',
+    'pay_off': 1,
+    'resources': [5, 6] 
+},
+{
+    'name': 'fsck',
+    'pay_off': 0.1,
+    'resources': [1, 6] 
+},
+]
 
-    @classmethod
-    def setUpClass(cls):
-        super().setUpClass()
-        try:
-            # NOTE: Requires "chromedriver" binary to be installed in $PATH
-            cls.driver = webdriver.Chrome()
-        except:
-            super().tearDownClass()
-            raise
+def mocked_random(start, end):
+    return 0
 
-    @classmethod
-    def tearDownClass(cls):
-        cls.driver.quit()
-        super().tearDownClass()
+class UtilsTest(TestCase):
+    
+    def test_sort_task_list(self):
+        result = earth_utils.sort_task_list(tasks_list)
+        most_important_task = result[0]['name']
+        self.assertEqual(most_important_task, 'fotos')
+    
+    def test_distribute_tasks(self):
+        sorted_list = earth_utils.sort_task_list(tasks_list)
+        satellite, new_tasks_list = earth_utils.distribute_tasks(sorted_list)
+        most_important_task = satellite['tasks'][0]
+        second_important_task = new_tasks_list[0]['name']
+        self.assertEqual(most_important_task, 'fotos')
+        self.assertEqual(second_important_task, 'mantenimiento')
 
-    def test_when_chat_message_posted_then_seen_by_everyone_in_same_room(self):
-        try:
-            self._enter_chat_room('room_1')
+    @patch('ground_control.consumers.satellite_utils.random.randint', mocked_random)
+    def test_solve_taks_pass(self):
+        result, tr = satellite_utils.solve_task('test_task', -1)
+        target = 'Task completed: test_task'
+        self.assertEqual(result, target)
+        self.assertTrue(tr)
 
-            self._open_new_window()
-            self._enter_chat_room('room_1')
-
-            self._switch_to_window(0)
-            self._post_message('hello')
-            WebDriverWait(self.driver, 2).until(lambda _:
-                'hello' in self._chat_log_value,
-                'Message was not received by window 1 from window 1')
-            self._switch_to_window(1)
-            WebDriverWait(self.driver, 2).until(lambda _:
-                'hello' in self._chat_log_value,
-                'Message was not received by window 2 from window 1')
-        finally:
-            self._close_all_new_windows()
-
-    def test_when_chat_message_posted_then_not_seen_by_anyone_in_different_room(self):
-        try:
-            self._enter_chat_room('room_1')
-
-            self._open_new_window()
-            self._enter_chat_room('room_2')
-
-            self._switch_to_window(0)
-            self._post_message('hello')
-            WebDriverWait(self.driver, 2).until(lambda _:
-                'hello' in self._chat_log_value,
-                'Message was not received by window 1 from window 1')
-
-            self._switch_to_window(1)
-            self._post_message('world')
-            WebDriverWait(self.driver, 2).until(lambda _:
-                'world' in self._chat_log_value,
-                'Message was not received by window 2 from window 2')
-            self.assertTrue('hello' not in self._chat_log_value,
-                'Message was improperly received by window 2 from window 1')
-        finally:
-            self._close_all_new_windows()
-
-    # === Utility ===
-
-    def _enter_chat_room(self, room_name):
-        self.driver.get(self.live_server_url + '/chat/')
-        ActionChains(self.driver).send_keys(room_name + '\n').perform()
-        WebDriverWait(self.driver, 2).until(lambda _:
-            room_name in self.driver.current_url)
-
-    def _open_new_window(self):
-        self.driver.execute_script('window.open("about:blank", "_blank");')
-        self.driver.switch_to_window(self.driver.window_handles[-1])
-
-    def _close_all_new_windows(self):
-        while len(self.driver.window_handles) > 1:
-            self.driver.switch_to_window(self.driver.window_handles[-1])
-            self.driver.execute_script('window.close();')
-        if len(self.driver.window_handles) == 1:
-            self.driver.switch_to_window(self.driver.window_handles[0])
-
-    def _switch_to_window(self, window_index):
-        self.driver.switch_to_window(self.driver.window_handles[window_index])
-
-    def _post_message(self, message):
-        ActionChains(self.driver).send_keys(message + '\n').perform()
-
-    @property
-    def _chat_log_value(self):
-        return self.driver.find_element_by_css_selector('#chat-log').get_property('value')
+    @patch('ground_control.consumers.satellite_utils.random.randint', mocked_random)
+    def test_solve_tasks_fail(self):
+        result, fls = satellite_utils.solve_task('test_task', 1)
+        target = 'Failed to complete task: test_task'
+        self.assertEqual(result, target)
+        self.assertFalse(fls)
