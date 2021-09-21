@@ -9,10 +9,10 @@ class Satellite(models.Model):
 
 class Task(models.Model):
     name = models.CharField(max_length=100)
-    resources = models.TextField()
     date_added = models.DateTimeField(default=timezone.now)
     # assigned_to = models.ForeignKey(Satellite, on_delete=PROTECT)
     assigned_to = models.CharField(max_length=100) #TODO: use foreingKey
+    completed = models.BooleanField()
 
     def __str__(self):
         return self.name
