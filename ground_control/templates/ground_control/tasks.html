@@ -1,6 +1,24 @@
-{% for task in tasks %}
-    {{ task.name }}
-    {{ task.date_added}}
-    {{ task.assigned_to}}
-    {{ task.completed}}
-{% endfor %}
+{% extends "ground_control/base.html" %}
+
+{% block content %}
+<div class="container-table">
+	<div class="table">
+		<div class="table-header">
+			<div class="header__item">Name</div>
+			<div class="header__item">Date</div>
+			<div class="header__item">Assigned to</div>
+			<div class="header__item">Completed</div>
+		</div>
+		<div class="table-content">	
+            {% for task in tasks %}
+			<div class="table-row">		
+				<div class="table-data">{{ task.name }}</div>
+				<div class="table-data">{{ task.date_added|date:"j-M-Y h:i:s" }}</div>
+				<div class="table-data">{{ task.assigned_to }}</div>
+				<div class="table-data">{{ task.completed }}</div>
+			</div>
+            {% endfor %}
+		</div>	
+	</div>
+</div>
+{% endblock content %}
