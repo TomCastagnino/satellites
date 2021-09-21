@@ -1,5 +1,13 @@
 
-Hi there!
+# UPDATES
+
+* Version 3: 
+    1. Tests
+    2. Navbar
+    3. Registro histórico de tareas
+    4. Visualización del registro histórico (ir a 'Tasks' en el navbar)
+
+
 
 Abordaje del ejercicio.
 
