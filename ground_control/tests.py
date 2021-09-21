@@ -1,4 +1,5 @@
-from django.test import TestCase
+from django.http import response
+from django.test import TestCase, Client
 from .consumers import earth_utils, satellite_utils
 from unittest.mock import patch
 
@@ -56,3 +57,21 @@ class UtilsTest(TestCase):
         target = 'Failed to complete task: test_task'
         self.assertEqual(result, target)
         self.assertFalse(fls)
+
+
+class RoutesTests(TestCase):
+    def setUp(self):
+        self.c = Client()
+
+    def test_index(self):
+        response = self.c.get('/ground_control/')
+        self.assertEqual(response.status_code, 200)
+    
+    def test_tasks(self):
+        response = self.c.get('/ground_control/tasks/')
+        self.assertEqual(response.status_code, 200)
+        
+    def test_satellite_number(self):
+        response = self.c.get('/ground_control/earth/3/')
+        self.assertEqual(response.status_code, 200)
+
