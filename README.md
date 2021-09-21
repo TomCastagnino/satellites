@@ -9,7 +9,7 @@
 
 
 
-Abordaje del ejercicio.
+# Abordaje del ejercicio.
 
 Primero me enfoqué en el algoritmo de asignación de tareas. Me pareció que se asemejaba al problema del set packing (a algún tipo de la familia de los set packing problems https://en.wikipedia.org/wiki/Set_packing).
 
