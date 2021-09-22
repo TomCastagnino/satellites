@@ -7,8 +7,11 @@ Hacer el satélite verdaderamente independiente. [aka Tendría que haber empezad
 
 1. Levantar otra app para un satélite en el puerto 9000 darle ID. Sacar el consumer de satélites de la otra app y pasarlo a esta.
 2. Registrar el satélite:
-	a. Mandar un GET desde el satélite a localhost:8000 buscando #ID9000 (ID del satélite).
-	b. Si la ID está, no hacer nada. Si no está, hacer un POST y registrla.
+
+	a) Mandar un GET desde el satélite a localhost:8000 buscando #ID9000 (ID del satélite).
+
+	b) Si la ID está, no hacer nada. Si no está, hacer un POST y registrla.
+
 3. En localhost:8000 (Earth). Hacer una query en la tabla y buscar todos los satélites registrados (en el punto 2). Hacer un GET a /health para ver si el/los satélites están en línea.
 4. Mandar la data.
 
