@@ -7,6 +7,10 @@ from earth_api import serializers
 
 
 class RegisterSatellite(APIView):
+    """port is Satellite's PK so if someone tries to save an already saved satellite nothing will happen.
+    There's no need to safe check first. In a way, that makes the get/ method unnecessary. 
+    I'll keep it nontheless. For it could be handy to know if a satellite is store in the db or not.
+    """
 
     serializer_class = serializers.RegisterSatelliteSerializer
 
@@ -26,7 +30,7 @@ class RegisterSatellite(APIView):
             name = serializers.validated_data.get('name')
             port = serializers.validated_data.get('port')
             try:
-                Satellite(name=name, port=port).save()
+                Satellite(name=name, port=port).save() 
             except Exception as e:
                 return Response({'message': e}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
             return Response({'message': 'Satellite saved.'})
