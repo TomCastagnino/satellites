@@ -1,5 +1,20 @@
 
-# TODO:
+# In progress:
+
+Storing a satellite in Earth's db:
+
+![alt text](images/saving_stl.png)
+
+Looking if a satellite is already saved in Earth's db:
+
+![alt text](images/searching_stl.png)
+
+Processing assigned tasks and sending back the result:
+
+![alt text](images/response_from_stl.png)
+
+
+TODO:
 
 Version 4:
 
