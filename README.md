@@ -21,7 +21,7 @@ Ir a http://127.0.0.1:8000/api/start_button/
 
 Copiar lo siguiente y hacer click en Post:
 
-{
+> {
     "tasks": [{
         "name": "fotos",
         "pay_off": 10,
@@ -45,7 +45,8 @@ Copiar lo siguiente y hacer click en Post:
 }
 
 
-Ejemplo con 3 satélites (puertos 9000, 5000 y 4000)
+
+Ejemplo con 3 satélites (puertos 9000, 5000 y 4000):
 
 ![alt text](images/2version_4.png)
 
