@@ -1,5 +1,6 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from rest_framework import status
 from satellites_api import serializers
 from satellites_api import models
 from satellites_api import utils
@@ -32,5 +33,7 @@ class TasksView(APIView):
                     'completed': completed
                     })
             return Response({'results': results})
+        else:
+            return Response(serializers.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
