@@ -1,5 +1,50 @@
 
-# In progress:
+# Updates: version 4 completa
+
+Start up:
+
+(El orden es importante! Levantar primero el server de Earth.)
+
+a) $ python manage.py runserver
+b) $ cd satellite_app/
+$ python manage.py runserver [elegir un puerto distinto de 8000]
+Repetir (b) las veces que se quiera cambiando el número de puerto.
+
+Al arrancar, cada satélite hace un post request a Earth y se da check-in.
+
+Ir a http://127.0.0.1:8000/api/start_button/
+
+![alt text](images/1version_4.png)
+
+Copiar lo siguiente y hacer click en Post:
+
+{
+    "tasks": [{
+        "name": "fotos",
+        "pay_off": 10,
+        "resources": [1, 5]
+        },
+        {
+        "name": "mantenimiento",
+        "pay_off": 1,
+        "resources": [1, 2]
+        },
+        {
+        "name": "pruebas",
+        "pay_off": 1,
+        "resources": [5, 6]
+        },
+        {
+        "name": "fsck",
+        "pay_off": 0.1,
+        "resources": [1, 6]
+        }]
+}
+
+![alt text](images/2version_4.png)
+
+
+## In progress:
 
 Storing a satellite in Earth's db:
 
@@ -32,7 +77,7 @@ Hacer el satélite verdaderamente independiente. [aka Tendría que haber empezad
 
 Usar Django REST framework.
 
-# UPDATES
+## UPDATES
 
 * Version 3: 
     1. Tests

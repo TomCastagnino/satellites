@@ -4,6 +4,7 @@ from rest_framework import status
 
 from .models import Satellite, Task
 from earth_api import serializers
+from earth_api.distributor import start_distribution
 
 
 class RegisterSatellite(APIView):
@@ -67,3 +68,46 @@ class TaskResults(APIView):
             return Response({'message': 'Task saved.'})
         else:
             return Response(serializers.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class StartButton(APIView):
+
+    serializer_class = serializers.StartButtonSerializer
+
+    def get(self, request, format=None):
+        return Response({'example': DEMO})
+
+    def post(self, request):
+
+        serializers = self.serializer_class(data=request.data)
+
+        if serializers.is_valid():
+            tasks = serializers.validated_data.get('tasks')
+            result = start_distribution(tasks)
+            return Response({'message': result})       
+        else:
+            return Response(serializers.errors, status=status.HTTP_400_BAD_REQUEST) 
+
+
+DEMO = {
+    "tasks": [{
+        "name": "fotos",
+        "pay_off": 10,
+        "resources": [1, 5]
+        },
+        {
+        "name": "mantenimiento",
+        "pay_off": 1,
+        "resources": [1, 2]
+        },
+        {
+        "name": "pruebas",
+        "pay_off": 1,
+        "resources": [5, 6]
+        },
+        {
+        "name": "fsck",
+        "pay_off": 0.1,
+        "resources": [1, 6]
+        }]
+}

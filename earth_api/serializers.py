@@ -11,3 +11,8 @@ class TaskResultsSerializer(serializers.Serializer):
     date_added = serializers.DateTimeField()
     assigned_to = serializers.CharField(max_length=100)
     completed = serializers.BooleanField()
+
+
+class StartButtonSerializer(serializers.Serializer):
+    tasks = serializers.JSONField()  
+    
