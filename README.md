@@ -1,5 +1,5 @@
 
-# Updates: version 4 completa
+# (24/09/2021) Updates: version 4 completa
 
 Start up:
 
@@ -51,7 +51,7 @@ Ejemplo con 3 satélites (puertos 9000, 5000 y 4000):
 ![alt text](images/2version_4.png)
 
 
-## In progress:
+## (23/09/2021) In progress:
 
 Storing a satellite in Earth's db:
 
@@ -84,7 +84,7 @@ Hacer el satélite verdaderamente independiente. [aka Tendría que haber empezad
 
 Usar Django REST framework.
 
-## UPDATES
+## (22/09/2021) UPDATES
 
 * Version 3: 
     1. Tests
