@@ -66,7 +66,7 @@ Processing assigned tasks and sending back the result:
 ![alt text](images/response_from_stl.png)
 
 
-TODO:
+## (22/09/2021) TODO:
 
 Version 4:
 
@@ -84,7 +84,7 @@ Hacer el satélite verdaderamente independiente. [aka Tendría que haber empezad
 
 Usar Django REST framework.
 
-## (22/09/2021) UPDATES
+## (21/09/2021) UPDATES
 
 * Version 3: 
     1. Tests
