@@ -3,9 +3,9 @@ from rest_framework.response import Response
 from satellites_api import serializers
 from satellites_api import models
 from satellites_api import utils
+from satellites_api.setup import NAME
 from datetime import datetime
 
-SATELLITE_NAME = 9000
 
 class Health(APIView):
     def get(self, request, format=None):
@@ -24,11 +24,11 @@ class TasksView(APIView):
             for task in tasks:
                 _, completed = utils.solve_task(task, error_margin=10)
                 now = datetime.now()
-                models.Task(name=task, date_added=now, assigned_to=SATELLITE_NAME, completed=completed).save()
+                models.Task(name=task, date_added=now, assigned_to=NAME, completed=completed).save()
                 results.append({
                     'name': task, 
                     'date_added': now,
-                    'assigned_to': SATELLITE_NAME,
+                    'assigned_to': NAME,
                     'completed': completed
                     })
             return Response({'results': results})
