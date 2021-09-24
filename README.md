@@ -6,8 +6,11 @@ Start up:
 (El orden es importante! Levantar primero el server de Earth.)
 
 a) $ python manage.py runserver
+
 b) $ cd satellite_app/
+
 $ python manage.py runserver [elegir un puerto distinto de 8000]
+
 Repetir (b) las veces que se quiera cambiando el número de puerto.
 
 Al arrancar, cada satélite hace un post request a Earth y se da check-in.
