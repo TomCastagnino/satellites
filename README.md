@@ -44,6 +44,9 @@ Copiar lo siguiente y hacer click en Post:
         }]
 }
 
+
+Ejemplo con 3 satélites (puertos 9000, 5000 y 4000)
+
 ![alt text](images/2version_4.png)
 
 
