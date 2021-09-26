@@ -120,14 +120,14 @@ Instalar Docker y correr: $ docker run -p 6379:6379 -d redis:5
 
 Ir a localhost:8000/ground_control y seleccionar el número de satélites:
 
-![alt text](0_satellogic.png)
+![alt text](images/0_satellogic.png)
 
 Al ser redirigido a la siguiente pantalla, hay un ejemplo ya cargado. El ejemplo se puede modificar, siempre y cuando se respete la misma estructura del JSON y se mantengan las Keys.
 
-![alt text](1_satellogic.png)
+![alt text](images/1_satellogic.png)
 
 Apretar 'send'. Para borrar los registros, CTRL + F5
 
-![alt text](2_satellogic.png)
+![alt text](images/2_satellogic.png)
 
 Para el desarrollo, me basé en https://channels.readthedocs.io/en/stable/tutorial/part_1.html

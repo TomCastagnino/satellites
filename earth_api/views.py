@@ -4,7 +4,7 @@ from rest_framework import status
 
 from .models import Satellite, Task
 from earth_api import serializers
-from earth_api.distributor import start_distribution
+from earth_api.distributor import start_distribution, get_online_satellites
 
 
 class RegisterSatellite(APIView):
@@ -68,6 +68,12 @@ class TaskResults(APIView):
             return Response({'message': 'Task saved.'})
         else:
             return Response(serializers.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class OnlineSatellites(APIView):
+    def get(self, request, format=None):
+        online_satellites = get_online_satellites()
+        return Response({'message': online_satellites})
 
 
 class StartButton(APIView):

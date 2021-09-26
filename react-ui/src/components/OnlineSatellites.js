@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Paper } from '@mui/material';
+import { Card, CardContent, Typography } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 
 const useStyles = makeStyles((theme) => ({
@@ -14,6 +14,7 @@ const useStyles = makeStyles((theme) => ({
         alignItems: 'center',
         justifyContent: 'center',
         margin: 50,
+        marginLeft: 0,
         padding: 25
     }
 }));
@@ -35,11 +36,16 @@ export default function OnlineSatellites() {
     }, []);
 
     return (
-        <Paper className={classes.onlineSatellitesPaper}>
-            Online Satellites:
-            {satellites.length}
-
-            [ {satellites} ]
-        </Paper>
+        <Card className={classes.onlineSatellitesPaper}>
+            <CardContent>
+                <Typography variant="h5" color="text.secondary">
+                    Number of satellites online: {satellites.length} 
+                    <br/>
+                </Typography>
+                <Typography variant="body2" color="text.secondary" style={{marginTop: 30}}>
+                    {satellites.join(", ")}
+                </Typography>
+            </CardContent>
+        </Card>
     );
 }

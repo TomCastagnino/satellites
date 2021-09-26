@@ -14,7 +14,7 @@ function App() {
   return (
     <div className="App">
       <NavBar />
-        <Grid container>
+        <Grid container spacing={0}>
           <Grid item xs={8}>
             <TaskList setResults={setResults} />
           </Grid>

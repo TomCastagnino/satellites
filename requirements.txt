@@ -3,4 +3,5 @@ channels
 channels_redis
 selenium
 djangorestframework
+django-cors-headers
 requests

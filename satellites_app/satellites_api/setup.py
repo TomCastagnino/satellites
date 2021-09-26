@@ -10,8 +10,6 @@ def setUp():
     
     endpoint = 'http://127.0.0.1:8000/api/register_satellite/'
 
-    print(sys.argv)
-
     payload = {
         'name': NAME,
         'port': PORT
