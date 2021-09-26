@@ -1,6 +1,7 @@
 import * as React from 'react';
-import Button from '@mui/material/Button';
+import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import TextField from '@mui/material/TextField';
+import { Grid, IconButton, Paper } from '@mui/material';
 
 
 export default function TaskForm(props) {
@@ -23,20 +24,36 @@ export default function TaskForm(props) {
         setTask({})
     };
 
+    const isReady = task => {
+        return (
+            task.hasOwnProperty('name') && task.name !== '' &&
+            task.hasOwnProperty('payoff') && task.payoff !== '' &&
+            task.hasOwnProperty('resources') && task.resources.length !== 0
+        )
+    }
+
     return (
-        <div>
+        <Paper elevation={0}>
+        <Grid flex={1} container direction="row" justifyContent="center" alignItems="center">
+            <Grid item>
             <TextField
                 id="name"
                 label="Name"
+                helperText="Task name"
                 value={task['name'] || ''}
                 onChange={manageTask}
             />
+            </Grid>
+            <Grid item>
             <TextField
                 id="payoff"
                 label="Payoff"
+                helperText="Task value"
                 value={task['payoff'] || ''}
                 onChange={manageTask}
             />
+            </Grid>
+            <Grid item>
             <TextField
                 id="resources"
                 label="Resources"
@@ -44,12 +61,16 @@ export default function TaskForm(props) {
                 value={task['resources'] || ''}
                 onChange={manageTask}
             />
-            <Button 
-                variant="outlined"
-                onClick={handleSubmit}
-            >
-                Add Task
-            </Button>
-        </div>
+            </Grid>
+            <Grid item>
+                <IconButton
+                    onClick={handleSubmit}
+                    disabled={!isReady(task)}
+                >
+                    <AddCircleOutlineIcon fontSize="large" />
+                </IconButton>
+            </Grid>
+        </Grid>
+        </Paper>
     );
 }
