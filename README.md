@@ -1,3 +1,49 @@
+# (26/09/2021) Updates: version 5
+
+UI hecha en React.
+
+Instrucciones:
+
+
+$ python manage.py runserver
+
+$ cd satellogic/satellite_app/
+
+$ python manage.py runserver [elegir un puerto distinto de 8000 y 3000]
+
+
+Instalar NodeJS
+
+
+$ cd satellogic/react-ui
+
+$ npm install
+
+$ npm start
+
+
+**Ir a localhost:3000/ **
+
+
+Al ingresar aparece en pantalla el número de satélites online.
+
+![alt text](images/1react.png)
+
+
+Ingresar nombre, payoff y resources (cada resource debe estar separado por comas). 
+
+![alt text](images/2react.png)
+
+
+Ingresar las tareas que se quiera.
+Enviar a los satélites para procesar.
+
+![alt text](images/3react.png)
+
+
+Resultados 
+
+![alt text](images/4react.png)
 
 # (24/09/2021) Updates: version 4 completa
 
