@@ -1,6 +1,6 @@
-# (26/09/2021) Updated
+# (26/09/2021) Updates: version 5
 
-**Version 5, UI hecha en React.**
+**UI hecha en React.**
 
 **Instrucciones**:
 
@@ -25,7 +25,7 @@ $ npm start
 **Ir a localhost:3000/**
 
 
-Al ingresar aparece en pantalla el número de satélites online:
+Al ingresar aparece en pantalla el número de satélites online [en el ejemplo, 3 en los puertos 7000, 8080 y 9000]:
 
 ![alt text](images/1react.png)
 
