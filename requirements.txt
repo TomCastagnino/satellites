@@ -1,7 +1,0 @@
-django>=3.2<3.3
-channels
-channels_redis
-selenium
-djangorestframework
-django-cors-headers
-requests

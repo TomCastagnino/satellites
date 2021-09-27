@@ -1,10 +1,10 @@
+import socket
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from satellites_api import serializers
 from satellites_api import models
 from satellites_api import utils
-from satellites_api.setup import NAME
 from datetime import datetime
 
 
@@ -17,6 +17,7 @@ class TasksView(APIView):
     serializer_class = serializers.TasksSerializer
 
     def post(self, request):
+        NAME = socket.gethostname()
         serializers = self.serializer_class(data=request.data)
 
         if serializers.is_valid():

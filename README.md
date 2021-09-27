@@ -1,5 +1,39 @@
 # (26/09/2021) Updates: version 5
 
+## Setup
+
+### Install fades
+
+```
+pip install fades
+```
+
+## Bootstrap
+
+```
+# Build docker images
+make build
+# Bootstrap apps
+make bootstrap
+# Start apps
+make up
+```
+
+## Preload satellites
+```
+make setup_satellites
+```
+
+## Access the React Front
+
+React UI should be accesible at `http://0.0.0.0:4000`
+
+## Monitor application
+
+```
+make logs
+```
+
 **UI hecha en React.**
 
 **Instrucciones**:
@@ -27,20 +61,20 @@ $ npm start
 
 Al ingresar aparece en pantalla el número de satélites online [en el ejemplo, 3 en los puertos 7000, 8080 y 9000]:
 
-![alt text](images/1react.png)
+![alt text](.images/1react.png)
 
 Ingresar nombre, payoff y resources (cada resource debe estar separado por comas):
 
-![alt text](images/2react.png)
+![alt text](.images/2react.png)
 
 Ingresar las tareas que se quiera.
 Enviar a los satélites para procesar:
 
-![alt text](images/3react.png)
+![alt text](.images/3react.png)
 
 Resultados:
 
-![alt text](images/4react.png)
+![alt text](.images/4react.png)
 
 # (24/09/2021) Updates: version 4 completa
 
@@ -60,7 +94,7 @@ Al arrancar, cada satélite hace un post request a Earth y se da check-in.
 
 Ir a http://127.0.0.1:8000/api/start_button/
 
-![alt text](images/1version_4.png)
+![alt text](.images/1version_4.png)
 
 Copiar lo siguiente y hacer click en Post:
 
@@ -91,22 +125,22 @@ Copiar lo siguiente y hacer click en Post:
 
 Ejemplo con 3 satélites (puertos 9000, 5000 y 4000):
 
-![alt text](images/2version_4.png)
+![alt text](.images/2version_4.png)
 
 
 ## (23/09/2021) In progress:
 
 Storing a satellite in Earth's db:
 
-![alt text](images/saving_stl.png)
+![alt text](.images/saving_stl.png)
 
 Looking if a satellite is already saved in Earth's db:
 
-![alt text](images/searching_stl.png)
+![alt text](.images/searching_stl.png)
 
 Processing assigned tasks and sending back the result:
 
-![alt text](images/response_from_stl.png)
+![alt text](.images/response_from_stl.png)
 
 
 ## (22/09/2021) TODO:
@@ -163,14 +197,14 @@ Instalar Docker y correr: $ docker run -p 6379:6379 -d redis:5
 
 Ir a localhost:8000/ground_control y seleccionar el número de satélites:
 
-![alt text](images/0_satellogic.png)
+![alt text](.images/0_satellogic.png)
 
 Al ser redirigido a la siguiente pantalla, hay un ejemplo ya cargado. El ejemplo se puede modificar, siempre y cuando se respete la misma estructura del JSON y se mantengan las Keys.
 
-![alt text](images/1_satellogic.png)
+![alt text](.images/1_satellogic.png)
 
 Apretar 'send'. Para borrar los registros, CTRL + F5
 
-![alt text](images/2_satellogic.png)
+![alt text](.images/2_satellogic.png)
 
 Para el desarrollo, me basé en https://channels.readthedocs.io/en/stable/tutorial/part_1.html

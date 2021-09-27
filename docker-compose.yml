@@ -1,0 +1,61 @@
+version: "3"
+
+services:
+  redis:
+    image: redis:5
+    ports:
+      - 6379:6379
+
+  ground:
+    image: satellogic_core:latest
+    depends_on:
+      - redis
+    ports:
+      - 8080:8000
+    volumes:
+      - ./ground:/code
+    environment:
+      - REDIS_HOST=redis
+
+  satellite_8081:
+    image: satellogic_core:latest
+    hostname: satellite.8081
+    depends_on:
+      - redis
+    ports:
+      - 8081:8081
+    volumes:
+      - ./satellites_app:/code
+    command: 'python3 manage.py runserver 0.0.0.0:8081'
+
+  satellite_8082:
+    image: satellogic_core:latest
+    hostname: satellite.8082
+    depends_on:
+      - redis
+    ports:
+      - 8082:8082
+    volumes:
+      - ./satellites_app:/code
+    command: 'python3 manage.py runserver 0.0.0.0:8082'
+
+  front:
+    image: satellogic_react:latest
+    depends_on:
+      - ground
+    ports:
+      - 4000:4000
+    volumes:
+      - ./front/src:/src/src
+    environment:
+      - PORT=4000
+      - REACT_APP_GROUND_API_HOST=http://0.0.0.0:8080
+
+  tools:
+    image: satellogic_tools:latest
+    depends_on:
+      - ground
+    volumes:
+      - ./tools:/code
+    environment:
+      - GROUND_HOST=http://ground:8000
