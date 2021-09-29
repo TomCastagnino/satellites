@@ -19,7 +19,7 @@ make bootstrap
 make up
 ```
 
-```
+
 Note to my future self: 
 
 ```
