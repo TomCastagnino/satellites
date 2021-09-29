@@ -21,7 +21,7 @@ make bootstrap
 make up
 ```
 [^1]: Note to my future self: 
-```
+
  $ sudo groupadd docker
  $ sudo usermod -aG docker $USER
 
@@ -30,7 +30,6 @@ If testing on a virtual machine, it may be necessary to restart the virtual mach
 
  $ newgrp docker 
 
-```
 
 ## Preload satellites
 ```
