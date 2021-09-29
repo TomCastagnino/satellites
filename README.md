@@ -11,12 +11,23 @@ pip install fades
 ## Bootstrap
 
 ```
-# Build docker images
+# Build docker images[^1]
 make build
 # Bootstrap apps
 make bootstrap
 # Start apps
 make up
+```
+[^1]: Note to my future self: 
+```
+ $ sudo groupadd docker
+ $ sudo usermod -aG docker $USER
+
+
+If testing on a virtual machine, it may be necessary to restart the virtual machine for changes to take effect.
+
+ $ newgrp docker 
+
 ```
 
 ## Preload satellites
