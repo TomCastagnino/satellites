@@ -10,8 +10,10 @@ pip install fades
 
 ## Bootstrap
 
+Note[^1].
+
 ```
-# Build docker images[^1]
+# Build docker images
 make build
 # Bootstrap apps
 make bootstrap
